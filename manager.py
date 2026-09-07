@@ -9,7 +9,7 @@ from keep_alive import keep_alive
 
 print("--- Initializing Rafim Manager Engine Pro Max ---", flush=True)
 
-BOT_TOKEN = "8963227766:AAE1e9I9bk82QFTAusw9zQnbAy8ZVvM5Unw"
+BOT_TOKEN = "8963227766:AAHcXLL-eceHed6xeGYoNAXHntOf05dxAnE"
 bot = telebot.TeleBot(BOT_TOKEN, threaded=True)
 
 ADMIN_USER_ID = 8243644026
