@@ -9,7 +9,7 @@ from keep_alive import keep_alive
 
 print("--- Initializing Rafim Rose Premium Ultimate Engine ---", flush=True)
 
-BOT_TOKEN = "8963227766:AAEwucl5j0yenLHIOq_z-1TjqwFEXnaU3bY"
+BOT_TOKEN = "8963227766:AAE1oHt9_tz4-3qhQkGlNkZO_kglWaoVqg8"
 bot = telebot.TeleBot(BOT_TOKEN, threaded=True)
 
 ADMIN_USER_ID = 8243644026
