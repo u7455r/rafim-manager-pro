@@ -7,7 +7,7 @@ import telebot
 from telebot import types
 from keep_alive import keep_alive
 
-print("--- Initializing Rafim Manager Engine Pro Max ---", flush=True)
+print("--- Initializing Rafim Rose Premium Ultimate Engine ---", flush=True)
 
 BOT_TOKEN = "8963227766:AAHcXLL-eceHed6xeGYoNAXHntOf05dxAnE"
 bot = telebot.TeleBot(BOT_TOKEN, threaded=True)
@@ -173,6 +173,117 @@ def is_group_admin(chat_id, user_id):
     except Exception:
         return False
 
+# ==================== MODULE DETAILS ====================
+MODULE_DETAILS = {
+    "admin": "🛡️ **Admin Module (অ্যাডমিন নিয়ন্ত্রণ):**\n\nগ্রুপের সকল অ্যাডমিনিস্ট্রেটিভ কাজ পরিচালনা করার জন্য।\n\n📌 **কমান্ডসমূহ:**\n• `/admins` - গ্রুপের বর্তমান অ্যাডমিন তালিকা দেখতে।\n• `/promote` - কোনো মেম্বারকে অ্যাডমিন বানাতে (রিপ্লাই দিন)।\n• `/demote` - অ্যাডমিন পদ বাতিল করতে।",
+    "antiflood": "🌊 **Antiflood Module (ফ্লাড প্রটেকশন):**\n\nগ্রুপে দ্রুত মেসেজ পাঠিয়ে ফ্লাড করা ঠেকানোর সিস্টেম।\n\n📌 **কমান্ডসমূহ:**\n• `/flood` - ফ্লাড সেটিংস চেক করতে।\n• `/setflood <সংখ্যা>` - সর্বোচ্চ কতটি মেসেজের পর মিউট হবে সেট করুন।",
+    "antiraid": "⚔️ **AntiRaid Module (রেইড প্রতিরোধ):**\n\nগ্রুপে হঠাৎ বট অ্যাটাক বা রেইড আক্রমণ হলে গ্রুপ রক্ষা করুন।\n\n📌 **কমান্ডসমূহ:**\n• `/antiraid on/off` - অটোমেটিক লকডাউন সক্রিয় বা নিষ্ক্রিয় করুন।",
+    "approval": "🤝 **Approval Module (অনুমোদন):**\n\nনির্দিষ্ট মেম্বারকে স্প্যাম ফিল্টার বা ব্লকলিস্ট ছাড়া চ্যাট করার অনুমতি দিন।\n\n📌 **কমান্ডসমূহ:**\n• `/approve` - মেম্বারকে অনুমোদন দিন।\n• `/unapprove` - অনুমোদন প্রত্যাহার করুন।",
+    "bans": "🚫 **Bans Module (ব্যান ও বহিষ্কার):**\n\nঅবাঞ্ছিত মেম্বারদের সহজে গ্রুপ থেকে বের বা স্থায়ী ব্যান করার সিস্টেম।\n\n📌 **কমান্ডসমূহ:**\n• `/ban` - মেম্বারকে আজীবনের জন্য ব্যান করতে।\n• `/kick` - মেম্বারকে গ্রুপ থেকে বের করে দিতে।\n• `/unban` - ব্যান তুলে নিতে।",
+    "blocklists": "⛔ **Blocklists (ব্লকলিস্ট ফিল্টার):**\n\nখারাপ শব্দ, লিংক বা অযাচিত মেসেজ গ্রুপে স্বয়ংক্রিয়ভাবে ব্লক রাখার সিস্টেম।",
+    "captcha": "🤖 **CAPTCHA (ক্যাপচা ভেরিফিকেশন):**\n\nগ্রুপে যাতে কোনো ফেক বট ঢুকতে না পারে সেজন্য অটো ক্যাপচা টেস্ট।",
+    "cleancom": "🧹 **Clean Commands (কমান্ড ক্লিনার):**\n\nঅ্যাডমিনদের দেওয়া কমান্ড মেসেজ কাজ শেষ হওয়ার সাথে সাথে মুছে ফেলার সিস্টেম।",
+    "cleanserv": "🧽 **Clean Service (সার্ভিস মেসেজ রিমুভার):**\n\nমেম্বার জয়েন ও লিভ করার বিরক্তি মেসেজগুলো স্বয়ংক্রিয়ভাবে ডিলিট করার মোড।",
+    "connect": "🔗 **Connect (ইনবক্স কানেকশন):**\n\nবটের ইনবক্স থেকে গ্রুপ সরাসরি পরিচালনা করার কানেকশন মোড।",
+    "disabling": "📴 **Disabling (কমান্ড নিয়ন্ত্রণ):**\n\nগ্রুপের মেম্বারদের জন্য নির্দিষ্ট কোনো কমান্ড সাময়িকভাবে বন্ধ রাখার ব্যবস্থা।",
+    "federation": "🌐 **Federation (ফেডারেশন নেটওয়ার্ক):**\n\nআপনার একাধিক গ্রুপ একসাথে যুক্ত করে এক ক্লিকে সব গ্রুপ থেকে ব্যান করার নেটওয়ার্ক।",
+    "filters": "🎯 **Filters (অটো রিপ্লাই - ওনার নিয়ন্ত্রণ):**\n\nনির্দিষ্ট শব্দ লিখলে বট থেকে স্বয়ংক্রিয় উত্তর পাওয়ার ব্যবস্থা।\n\n📌 **প্রয়োজনীয় কমান্ডসমূহ:**\n• `/addfilter শব্দ | উত্তর` - নতুন ফিল্টার যুক্ত করুন।\n• `/filters` - সক্রিয় ফিল্টারের তালিকা।\n• `/stop শব্দ` - ফিল্টার মুছে দিন।",
+    "formatting": "✍️ **Formatting (টেক্সট স্টাইল):**\n\nবোল্ড, ইটালিক, কোড ব্লক এবং টেলিগ্রাম প্রিমিয়াম ফরম্যাটিং সহায়িকা।",
+    "greetings": "👋 **Greetings (স্বাগতম ও বিদায় বার্তা):**\n\nনতুন মেম্বারদের স্বাগতম বার্তা এবং গ্রুপ ছেড়ে যাওয়া মেম্বারদের বিদায় নোটিস।",
+    "backup": "📦 **Backup (ব্যাকআপ মোড):**\n\nগ্রুপের সকল ফিল্টার, রুলস ও কনফিগারেশন ডাটা নিরাপদে ব্যাকআপ নেওয়া।",
+    "language": "🌍 **Language (ভাষা নির্বাচন):**\n\nবটের ভাষা পরিবর্তন করার সেটিংস প্যানেল।",
+    "locks": "🔒 **Locks (মিডিয়া ও লিংক লক):**\n\nগ্রুপে স্টিকার, জিআইএফ, ছবি বা লিংক আলাদা আলাদাভাবে বন্ধ করার লক সিস্টেম।",
+    "logs": "📝 **Logs (লাইভ হিস্ট্রি):**\n\nগ্রুপের সমস্ত নোটিফিকেশন ও অ্যাকশন লাইভ প্রাইভেট চ্যানেলে দেখার ব্যবস্থা।",
+    "misc": "⚙️ **Misc (বিবিধ ফিচার):**\n\nইউজার ইনফো, আইডি খোঁজা এবং অন্যান্য প্রয়োজনীয় কুইক টুলস।",
+    "notes": "📌 **Notes (সংরক্ষিত তথ্য):**\n\nগ্রুপে দরকারি লেখা বা লিঙ্ক সেভ করে রাখার নোটস মডিউল।",
+    "pin": "📍 **Pin Module (পিন কন্ট্রোল):**\n\nমেসেজে রিপ্লাই দিয়ে সহজেই চ্যাটে পিন বা আনপিন করুন।\n\n📌 **কমান্ডসমূহ:**\n• `/pin` - মেসেজ পিন করতে।\n• `/unpin` - মেসেজ আনপিন করতে।",
+    "privacy": "🔐 **Privacy (নিরাপত্তা গ্যারান্টি):**\n\nগ্রুপের সকল ডাটা ১০০% সুরক্ষিত ও এনক্রিপ্টেড রাখার পলিসি।",
+    "purges": "🗑️ **Purges (এক ক্লিকে মেসেজ ডিলিট):**\n\nমেসেজে রিপ্লাই দিয়ে দ্রুত এক সাথে শত শত মেসেজ ডিলিট করুন।\n\n📌 **কমান্ড:**\n• `/purge` - রিপ্লাই করা মেসেজ থেকে নিচে সব ডিলিট হবে।",
+    "reports": "📢 **Reports (রিপোর্ট সিস্টেম):**\n\nসাধারণ মেম্বাররা কোনো স্প্যাম মেসেজে `@admin` লিখে অ্যাডমিনদের দ্রুত অ্যালার্ট করতে পারবে।",
+    "rules": "📜 **Rules (গ্রুপের নিয়মাবলী):**\n\nগ্রুপের যাবতীয় রুলস মেম্বারদের সুন্দর বাটন আকারে দেখানোর ব্যবস্থা।",
+    "topics": "💬 **Topics (ফোরাম ম্যানেজমেন্ট):**\n\nটেলিগ্রাম ফোরাম গ্রুপের আলাদা আলাদা টপিক ম্যানেজ করার ফিচার।",
+    "warnings": "⚠️ **Warnings (সতর্কবার্তা সিস্টেম):**\n\nখারাপ আচরণের জন্য মেম্বারদের ওয়ার্নিং দেওয়ার ব্যবস্থা।\n\n📌 **কমান্ডসমূহ:**\n• `/warn` - মেম্বারকে সতর্ক করুন (৩ বারে মিউট)।\n• `/warns` - মেম্বারের ওয়ার্নিং চেক করতে।",
+    "custom": "⭐ **Custom Instances (প্রো মোড):**\n\nবটের বিশেষ প্রিমিয়াম সেটিংস ও অটোমেশন পাওয়ার।"
+}
+
+# ==================== DASHBOARD MARKUPS ====================
+def get_full_rose_dashboard():
+    markup = types.InlineKeyboardMarkup(row_width=3)
+    
+    row1 = [
+        types.InlineKeyboardButton("🛡️ Admin", callback_data="mod_admin"),
+        types.InlineKeyboardButton("🌊 Antiflood", callback_data="mod_antiflood"),
+        types.InlineKeyboardButton("⚔️ AntiRaid", callback_data="mod_antiraid")
+    ]
+    row2 = [
+        types.InlineKeyboardButton("🤝 Approval", callback_data="mod_approval"),
+        types.InlineKeyboardButton("🚫 Bans", callback_data="mod_bans"),
+        types.InlineKeyboardButton("⛔ Blocklists", callback_data="mod_blocklists")
+    ]
+    row3 = [
+        types.InlineKeyboardButton("🤖 CAPTCHA", callback_data="mod_captcha"),
+        types.InlineKeyboardButton("🧹 Clean Com", callback_data="mod_cleancom"),
+        types.InlineKeyboardButton("🧽 Clean Servi", callback_data="mod_cleanserv")
+    ]
+    row4 = [
+        types.InlineKeyboardButton("🔗 Connect", callback_data="mod_connect"),
+        types.InlineKeyboardButton("📴 Disabling", callback_data="mod_disabling"),
+        types.InlineKeyboardButton("🌐 Federation", callback_data="mod_federation")
+    ]
+    row5 = [
+        types.InlineKeyboardButton("🎯 Filters", callback_data="mod_filters"),
+        types.InlineKeyboardButton("✍️ Formatting", callback_data="mod_formatting"),
+        types.InlineKeyboardButton("👋 Greetings", callback_data="mod_greetings")
+    ]
+    row6 = [
+        types.InlineKeyboardButton("📦 Backup", callback_data="mod_backup"),
+        types.InlineKeyboardButton("🌍 Language", callback_data="mod_language"),
+        types.InlineKeyboardButton("🔒 Locks", callback_data="mod_locks")
+    ]
+    row7 = [
+        types.InlineKeyboardButton("📝 Logs", callback_data="mod_logs"),
+        types.InlineKeyboardButton("⚙️ Misc", callback_data="mod_misc"),
+        types.InlineKeyboardButton("📌 Notes", callback_data="mod_notes")
+    ]
+    row8 = [
+        types.InlineKeyboardButton("📍 Pin", callback_data="mod_pin"),
+        types.InlineKeyboardButton("🔐 Privacy", callback_data="mod_privacy"),
+        types.InlineKeyboardButton("🗑️ Purges", callback_data="mod_purges")
+    ]
+    row9 = [
+        types.InlineKeyboardButton("📢 Reports", callback_data="mod_reports"),
+        types.InlineKeyboardButton("📜 Rules", callback_data="mod_rules"),
+        types.InlineKeyboardButton("💬 Topics", callback_data="mod_topics")
+    ]
+    
+    markup.add(*row1)
+    markup.add(*row2)
+    markup.add(*row3)
+    markup.add(*row4)
+    markup.add(*row5)
+    markup.add(*row6)
+    markup.add(*row7)
+    markup.add(*row8)
+    markup.add(*row9)
+    
+    markup.row(
+        types.InlineKeyboardButton("⚠️ Warnings", callback_data="mod_warnings"),
+        types.InlineKeyboardButton("⭐ Custom Instances", callback_data="mod_custom")
+    )
+    markup.row(
+        types.InlineKeyboardButton("💎 VIP Official Channel ↗", url=REQ_CHANNEL_LINK)
+    )
+    return markup
+
+def get_module_nav_markup():
+    # স্ক্রিনশটের মতো পাশাপাশি দুটি বাটন
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    markup.row(
+        types.InlineKeyboardButton("⬅️ Back to Menu", callback_data="back_to_full_menu"),
+        types.InlineKeyboardButton("🧑‍💻 Support Admin ↗", url="https://t.me/rafimhossen")
+    )
+    return markup
+
 def get_reply_keyboard():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     markup.add(types.KeyboardButton("🔄 রিস্টার্ট করুন"))
@@ -185,8 +296,8 @@ def get_reply_keyboard():
 def get_join_markup():
     markup = types.InlineKeyboardMarkup(row_width=1)
     markup.add(
-        types.InlineKeyboardButton("📢 ১. চ্যানেলে জয়েন করুন (@rafimhossen3)", url=REQ_CHANNEL_LINK),
-        types.InlineKeyboardButton("👥 ২. গ্রুপে জয়েন করুন (আবশ্যক)", url=REQ_GROUP_LINK),
+        types.InlineKeyboardButton("🌟 ১. ভিআইপি চ্যানেলে জয়েন করুন (@rafimhossen3) ↗", url=REQ_CHANNEL_LINK),
+        types.InlineKeyboardButton("👥 ২. অফিসিয়াল গ্রুপে জয়েন করুন (আবশ্যক) ↗", url=REQ_GROUP_LINK),
         types.InlineKeyboardButton("✅ জয়েন সম্পন্ন করেছি (Verify)", callback_data="verify_channel_sub")
     )
     return markup
@@ -195,13 +306,13 @@ def get_join_markup():
 def generate_smart_reply(text):
     t = text.lower() if text else ""
     if any(w in t for w in ["giveaway", "গিভঅ্যাওয়ে", "premium", "প্রিমিয়াম", "winner"]):
-        return "🎉 দুর্দান্ত গিভঅ্যাওয়ে! সবাই নিয়ম মেনে অংশ নিন এবং ইউজারনেম কমেন্ট করুন! 🚀✨"
+        return "🎉🔥 দুর্দান্ত ভিআইপি গিভঅ্যাওয়ে! সবাই নিয়ম মেনে অংশ নিন এবং ইউজারনেম কমেন্ট করুন! 🚀💎"
     elif any(w in t for w in ["update", "আপডেট", "নতুন", "রিলিজ"]):
-        return "🔥 দারুণ আপডেট! নতুন ফিচারের সাহায্যে ম্যানেজমেন্ট আরও সহজ হবে। 👏"
+        return "⚡✨ চমৎকার আপডেট! নতুন ফিচারের সাহায্যে গ্রুপ ম্যানেজমেন্ট হবে ১০০% নিখুঁত। 👏👑"
     elif any(w in t for w in ["কুইজ", "quiz", "প্রশ্ন"]):
-        return "💡 চমৎকার একটি প্রশ্ন! সঠিক উত্তরটি কমেন্টে দ্রুত জানিয়ে দিন। 🎯"
+        return "💡🎯 ব্রিলিয়ান্ট একটি প্রশ্ন! সঠিক উত্তরটি দ্রুত কমেন্টে জানিয়ে পুরস্কার জিতে নিন। 🎁"
     else:
-        return "💎 গুরুত্বপূর্ণ পোস্ট! সবাই লাইক/রিঅ্যাক্ট দিয়ে পাশে থাকুন। 👍"
+        return "💎✨ অত্যন্ত গুরুত্বপূর্ণ পোস্ট! সবাই লাইক/রিঅ্যাক্ট দিয়ে সাপোর্ট করুন। 👍🔥"
 
 @bot.channel_post_handler(content_types=['text', 'photo', 'video', 'document'])
 def handle_channel_post(message):
@@ -223,7 +334,7 @@ def handle_channel_post(message):
     except Exception as e:
         print(f"Post reply error: {e}", flush=True)
 
-# ==================== GROUP WELCOME & AUTO RESPONDER ====================
+# ==================== GROUP WELCOME & GOODBYE ====================
 @bot.message_handler(content_types=['new_chat_members'])
 def track_new_members_and_groups(message):
     register_chat(message.chat.id)
@@ -245,9 +356,12 @@ def track_new_members_and_groups(message):
         user_tag = f"@{member.username}" if member.username else f"[{member.first_name}](tg://user?id={member.id})"
         group_title = message.chat.title or "আমাদের গ্রুপ"
 
-        welcome_text = f"Hi {user_tag} welcome to {group_title}!"
+        welcome_text = (
+            f"👑 **Hi {user_tag} welcome to {group_title}!** ✨\n\n"
+            "🔥 আমাদের অফিশিয়াল চ্যানেলে সমস্ত আপডেট ও গিভঅ্যাওয়ে দেওয়া হয়। নিচে ক্লিক করে এখনি জয়েন করুন!"
+        )
         channel_box_markup = types.InlineKeyboardMarkup(row_width=1)
-        channel_box_markup.add(types.InlineKeyboardButton("Telegram Channel ↗", url=REQ_CHANNEL_LINK))
+        channel_box_markup.add(types.InlineKeyboardButton("💎 Official Telegram Channel ↗", url=REQ_CHANNEL_LINK))
 
         try:
             bot.send_message(message.chat.id, welcome_text, reply_markup=channel_box_markup, parse_mode='Markdown')
@@ -262,7 +376,7 @@ def handle_left_member(message):
         return
 
     user_tag = f"@{user.username}" if user.username else f"[{user.first_name}](tg://user?id={user.id})"
-    farewell_text = f"👋 বিদায়, {user_tag}!\n🚶 আপনি আমাদের গ্রুপ ছেড়ে চলে গেলেন। শুভকামনা রইল! ✨"
+    farewell_text = f"👋 **বিদায়, {user_tag}!**\n🚶 আপনি গ্রুপ ছেড়ে চলে গেলেন। আপনার ভবিষ্যৎ পথচলার জন্য শুভকামনা রইল! ✨"
     farewell_markup = types.InlineKeyboardMarkup(row_width=1)
     farewell_markup.add(types.InlineKeyboardButton("📢 অফিসিয়াল চ্যানেলে যুক্ত থাকুন ↗", url=REQ_CHANNEL_LINK))
 
@@ -271,16 +385,95 @@ def handle_left_member(message):
     except Exception as e:
         print(f"Goodbye error: {e}")
 
+# ==================== START & NAVIGATION ====================
+@bot.callback_query_handler(func=lambda call: call.data == "verify_channel_sub")
+def check_channel_verification(call):
+    if is_subscribed(call.from_user.id):
+        bot.answer_callback_query(call.id, "✅ অভিনন্দন! আপনার ভেরিফিকেশন সফল হয়েছে।")
+        try:
+            bot.delete_message(call.message.chat.id, call.message.message_id)
+        except Exception:
+            pass
+        send_welcome(call.message, call.from_user)
+    else:
+        bot.answer_callback_query(call.id, "❌ আপনি এখনো চ্যানেলে জয়েন করেননি! আগে জয়েন করুন।", show_alert=True)
+
+def send_welcome(message, user=None):
+    u = user if user else message.from_user
+    text = (
+        f"🌹 **স্বাগতম, {u.first_name}!** 👋✨\n\n"
+        "আমি আপনার অ্যাডভান্সড গ্রুপ ম্যানেজমেন্ট ও অটোমেশন রোবট — **Rafim Rose Manager**।\n\n"
+        "🛡️ গ্রুপকে লিঙ্ক-স্প্যামারদের হাত থেকে রক্ষা করতে এবং স্মুথলি কন্ট্রোল করতে আমাকে আপনার গ্রুপে **Admin** হিসেবে যুক্ত করুন।"
+    )
+    bot.send_message(message.chat.id, text, reply_markup=get_reply_keyboard(), parse_mode='Markdown')
+    bot.send_message(message.chat.id, "⚡ **মডিউল ড্যাশবোর্ড:**\nনিচের যেকোনো মডিউলে ক্লিক করে বিস্তারিত দেখে নিন:", reply_markup=get_full_rose_dashboard(), parse_mode='Markdown')
+
+@bot.message_handler(commands=['start', 'help'])
+def handle_start(message):
+    register_chat(message.chat.id)
+    u = message.from_user
+
+    if message.chat.type == 'private':
+        if is_new_user(u.id):
+            info = (
+                "👤 **নতুন ইউজার বট চালু করেছে!**\n\n"
+                f"• নাম: {u.first_name} {u.last_name or ''}\n"
+                f"• ইউজারনেম: @{u.username or 'নাই'}\n"
+                f"• আইডি: `{u.id}`"
+            )
+            notify_admin(info)
+
+        if not is_subscribed(u.id):
+            bot.send_message(
+                message.chat.id,
+                "⚠️ **বটটি ব্যবহার করতে হলে অবশ্যই আমাদের চ্যানেল ও গ্রুপে জয়েন থাকতে হবে!**\n\nনিচের বাটনে চাপ দিয়ে ভেরিফাই করুন:",
+                reply_markup=get_join_markup(),
+                parse_mode='Markdown'
+            )
+            return
+        send_welcome(message)
+    else:
+        bot.reply_to(message, "✅ বট সক্রিয় রয়েছে! সমস্ত মডিউল দেখতে ইনবক্সে /start দিন।")
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("mod_") or call.data == "back_to_full_menu")
+def handle_module_callbacks(call):
+    if not is_subscribed(call.from_user.id):
+        bot.answer_callback_query(call.id, "⚠️ অনুগ্রহ করে আগে চ্যানেলে জয়েন করুন!", show_alert=True)
+        return
+
+    if call.data == "back_to_full_menu":
+        bot.edit_message_text(
+            "⚡ **মডিউল ড্যাশবোর্ড:**\nনিচের যেকোনো মডিউলে ক্লিক করে বিস্তারিত দেখে নিন:",
+            call.message.chat.id,
+            call.message.message_id,
+            reply_markup=get_full_rose_dashboard(),
+            parse_mode='Markdown'
+        )
+        return
+
+    mod_key = call.data.replace("mod_", "")
+    info_text = MODULE_DETAILS.get(mod_key, "📌 এই মডিউলটি সম্পূর্ণ সক্রিয় রয়েছে।")
+
+    # স্ক্রিনশটের মতো নিচে Back to Menu এবং Support Admin বাটন শো করবে
+    bot.edit_message_text(
+        info_text,
+        call.message.chat.id,
+        call.message.message_id,
+        reply_markup=get_module_nav_markup(),
+        parse_mode='Markdown'
+    )
+
+# ==================== GROUP SMART RESPONDER & FILTERS ====================
 def generate_group_smart_answer(text):
     t = text.lower() if text else ""
     if any(w in t for w in ["কেমন আছিস", "কেমন আছেন", "how are you"]):
-        return "আলহামদুলিল্লাহ, আমি দারুণ আছি! আপনি কেমন আছেন? 😊"
+        return "আলহামদুলিল্লাহ, আমি দারুণ আছি! আপনি কেমন আছেন? 😊✨"
     elif any(w in t for w in ["বট", "bot", "admin", "মালিক"]):
-        return "আমি আপনাদের সহযোগিতায় সার্বক্ষণিক প্রস্তুত। ওনার: @rafimhossen 🛡️"
+        return "আমি আপনাদের সহযোগিতায় সার্বক্ষণিক প্রস্তুত। ডেভেলপার ও ওনার: @rafimhossen 🛡️👑"
     elif any(w in t for w in ["সাহায্য", "help", "কমান্ড"]):
-        return "যেকোনো তথ্যের জন্য বটের ইনবক্সে গিয়ে /start দিতে পারেন। 📌"
+        return "যেকোনো তথ্যের জন্য বটের ইনবক্সে গিয়ে /start দিতে পারেন। 📌⚡"
     else:
-        return "আপনার বার্তাটি লক্ষ্য করেছি! গ্রুপে আলোচনা চালিয়ে যান। 👍"
+        return "আপনার বার্তাটি লক্ষ্য করেছি! আলোচনা চালিয়ে যান। 👍💬"
 
 @bot.message_handler(func=lambda msg: msg.chat.type in ['group', 'supergroup'])
 def group_chat_auto_responder(message):
@@ -314,121 +507,6 @@ def group_chat_auto_responder(message):
         except Exception:
             pass
 
-# ==================== START & FORCE SUB ====================
-@bot.callback_query_handler(func=lambda call: call.data == "verify_channel_sub")
-def check_channel_verification(call):
-    if is_subscribed(call.from_user.id):
-        bot.answer_callback_query(call.id, "✅ ভেরিফিকেশন সফল হয়েছে!")
-        try:
-            bot.delete_message(call.message.chat.id, call.message.message_id)
-        except Exception:
-            pass
-        send_welcome(call.message, call.from_user)
-    else:
-        bot.answer_callback_query(call.id, "❌ আপনি এখনো চ্যানেলে জয়েন করেননি!", show_alert=True)
-
-def send_welcome(message, user=None):
-    u = user if user else message.from_user
-    text = f"🌹 **স্বাগতম, {u.first_name}!** 👋\n\nআমি আপনার স্মার্ট গ্রুপ ম্যানেজার ও অটোমেশন রোবট।"
-    bot.send_message(message.chat.id, text, reply_markup=get_reply_keyboard(), parse_mode='Markdown')
-
-@bot.message_handler(commands=['start'])
-def handle_start(message):
-    register_chat(message.chat.id)
-    u = message.from_user
-
-    if message.chat.type == 'private':
-        if is_new_user(u.id):
-            info = (
-                "👤 **নতুন ইউজার বট চালু করেছে!**\n\n"
-                f"• নাম: {u.first_name} {u.last_name or ''}\n"
-                f"• ইউজারনেম: @{u.username or 'নাই'}\n"
-                f"• আইডি: `{u.id}`"
-            )
-            notify_admin(info)
-
-        if not is_subscribed(u.id):
-            bot.send_message(
-                message.chat.id,
-                "⚠️ **বটটি ব্যবহার করতে হলে অবশ্যই আমাদের চ্যানেল ও গ্রুপে জয়েন থাকতে হবে!**\n\nনিচের বাটনে চাপ দিয়ে ভেরিফাই করুন:",
-                reply_markup=get_join_markup(),
-                parse_mode='Markdown'
-            )
-            return
-        send_welcome(message)
-    else:
-        bot.reply_to(message, "✅ বট সক্রিয় রয়েছে!")
-
-# ==================== EXTRA POWERFUL COMMANDS ====================
-@bot.message_handler(commands=['status'])
-def group_status_check(message):
-    register_chat(message.chat.id)
-    chats_cnt = len(get_all_chats())
-    users_cnt = get_total_users()
-    grp_filters = len(get_filters(message.chat.id)) if message.chat.type != 'private' else 0
-
-    status_card = (
-        "📊 **বট পারফরম্যান্স কার্ড:**\n\n"
-        f"🤖 **স্ট্যাটাস:** অনলাইন 🟢\n"
-        f"👥 **মোট ইউজার:** {users_cnt} জন\n"
-        f"🌐 **সংযুক্ত গ্রুপ:** {chats_cnt} টি\n"
-        f"🎯 **গ্রুপে সক্রিয় ফিল্টার:** {grp_filters} টি\n"
-        f"⚡ **সার্ভার রেসপন্স:** অতি দ্রুত"
-    )
-    bot.reply_to(message, status_card, parse_mode='Markdown')
-
-@bot.message_handler(commands=['info'])
-def user_info_card(message):
-    target = message.reply_to_message.from_user if message.reply_to_message else message.from_user
-    warns = get_warn_count(message.chat.id, target.id) if message.chat.type != 'private' else 0
-    info_text = (
-        "👤 **মেম্বার প্রোফাইল তথ্য:**\n\n"
-        f"• **নাম:** {target.first_name} {target.last_name or ''}\n"
-        f"• **ইউজারনেম:** @{target.username or 'নাই'}\n"
-        f"• **আইডি:** `{target.id}`\n"
-        f"• **ওয়ার্নিং সংখ্যা:** {warns}/3\n"
-        f"• **বট ইউজার:** {'হ্যাঁ' if target.is_bot else 'না'}"
-    )
-    bot.reply_to(message, info_text, parse_mode='Markdown')
-
-@bot.message_handler(commands=['lockdown'])
-def emergency_lockdown(message):
-    if message.chat.type == 'private':
-        return
-    is_anon = message.sender_chat and message.sender_chat.id == message.chat.id
-    if not (is_anon or is_group_admin(message.chat.id, message.from_user.id) or is_owner(message)):
-        bot.reply_to(message, "❌ এই কমান্ডের অনুমতি আপনার নেই!")
-        return
-
-    try:
-        bot.set_chat_permissions(message.chat.id, types.ChatPermissions(can_send_messages=False))
-        bot.send_message(message.chat.id, "🔒 **গ্রুপে লকডাউন জারি করা হয়েছে!**\nসাধারণ সদস্যরা এখন কথা বলতে পারবেন না।", parse_mode='Markdown')
-    except Exception as e:
-        bot.reply_to(message, f"ত্রুটি: {e}")
-
-@bot.message_handler(commands=['unlockdown'])
-def release_lockdown(message):
-    if message.chat.type == 'private':
-        return
-    is_anon = message.sender_chat and message.sender_chat.id == message.chat.id
-    if not (is_anon or is_group_admin(message.chat.id, message.from_user.id) or is_owner(message)):
-        bot.reply_to(message, "❌ এই কমান্ডের অনুমতি আপনার নেই!")
-        return
-
-    try:
-        bot.set_chat_permissions(
-            message.chat.id,
-            types.ChatPermissions(
-                can_send_messages=True,
-                can_send_media_messages=True,
-                can_send_other_messages=True,
-                can_add_web_page_previews=True
-            )
-        )
-        bot.send_message(message.chat.id, "🔓 **লকডাউন তুলে নেওয়া হয়েছে!**\nএখন সবাই চ্যাট করতে পারবেন।", parse_mode='Markdown')
-    except Exception as e:
-        bot.reply_to(message, f"ত্রুটি: {e}")
-
 # ==================== REPLY KEYBOARD HANDLER ====================
 @bot.message_handler(func=lambda msg: msg.text in [
     "🔄 রিস্টার্ট করুন", "📖 কমান্ড লিস্ট", "👤 আমার আইডি ও তথ্য", "📊 বটের স্ট্যাটাস", "🛡️ অ্যাডমিনগণ", "📜 গ্রুপের নিয়ম", "➕ গ্রুপে যুক্ত করুন", "📢 চ্যানেলে যুক্ত করুন"
@@ -443,34 +521,25 @@ def reply_buttons_handler(message):
     if message.text == "🔄 রিস্টার্ট করুন":
         send_welcome(message)
     elif message.text == "📊 বটের স্ট্যাটাস":
-        group_status_check(message)
+        chats_cnt = len(get_all_chats())
+        users_cnt = get_total_users()
+        bot.reply_to(message, f"📊 **স্ট্যাটাস:** অনলাইন 🟢\n👥 মেম্বার ডেটা: {users_cnt} জন\n🌐 সক্রিয় গ্রুপ: {chats_cnt} টি\n⚡ পিং: অতি দ্রুত", parse_mode='Markdown')
     elif message.text == "📖 কমান্ড লিস্ট":
-        help_cmd_list = (
-            "🛠️ **প্রয়োজনীয় কমান্ডসমূহ:**\n\n"
-            "• `/warn` - সতর্ক করতে (রিপ্লাই দিন)\n"
-            "• `/pin` - মেসেজ পিন করতে\n"
-            "• `/purge` - দ্রুত মেসেজ মুছতে\n"
-            "• `/info` - মেম্বারের তথ্য জানতে\n"
-            "• `/status` - সিস্টেম স্ট্যাটাস\n"
-            "• `/lockdown` - চ্যাট সাময়িক বন্ধ করতে\n"
-            "• `/unlockdown` - চ্যাট উন্মুক্ত করতে\n"
-            "• `/addfilter শব্দ | উত্তর` - অটো রিপ্লাই (ওনারের জন্য)"
-        )
-        bot.reply_to(message, help_cmd_list, parse_mode='Markdown')
+        bot.send_message(message.chat.id, "⚡ **মডিউল ড্যাশবোর্ড:**\nনিচের যেকোনো মডিউলে ক্লিক করে কমান্ড দেখে নিন:", reply_markup=get_full_rose_dashboard(), parse_mode='Markdown')
     elif message.text == "👤 আমার আইডি ও তথ্য":
         u = message.from_user
         bot.reply_to(message, f"👤 **তথ্য:**\n• নাম: {u.first_name}\n• ইউজারনেম: @{u.username or 'নাই'}\n• আইডি: `{u.id}`", parse_mode='Markdown')
     elif message.text == "🛡️ অ্যাডমিনগণ":
-        bot.reply_to(message, "গ্রুপে গিয়ে `/admins` দিলে তালিকা দেখা যাবে।")
+        bot.reply_to(message, "গ্রুপে গিয়ে `/admins` দিলে অ্যাডমিনদের তালিকা দেখা যাবে।")
     elif message.text == "📜 গ্রুপের নিয়ম":
-        bot.reply_to(message, "📜 গ্রুপে কোনো লিঙ্ক, স্প্যাম বা খারাপ আচরণ নিষিদ্ধ।")
+        bot.reply_to(message, "📜 গ্রুপে কোনো লিঙ্ক, স্প্যাম বা খারাপ আচরণ সম্পূর্ণ নিষিদ্ধ।")
     elif message.text == "➕ গ্রুপে যুক্ত করুন":
         m = types.InlineKeyboardMarkup()
-        m.add(types.InlineKeyboardButton("➕ Add Bot to Group", url=f"https://t.me/{bot_info.username}?startgroup=true"))
+        m.add(types.InlineKeyboardButton("➕ Add Bot to Group ↗", url=f"https://t.me/{bot_info.username}?startgroup=true"))
         bot.send_message(message.chat.id, "গ্রুপে যুক্ত করতে চাপ দিন:", reply_markup=m)
     elif message.text == "📢 চ্যানেলে যুক্ত করুন":
         m = types.InlineKeyboardMarkup()
-        m.add(types.InlineKeyboardButton("📢 Add Bot to Channel", url=f"https://t.me/{bot_info.username}?startchannel=true"))
+        m.add(types.InlineKeyboardButton("📢 Add Bot to Channel ↗", url=f"https://t.me/{bot_info.username}?startchannel=true"))
         bot.send_message(message.chat.id, "চ্যানেলে যুক্ত করতে চাপ দিন:", reply_markup=m)
 
 # ==================== STRICT OWNER-ONLY FILTERS ====================
@@ -598,7 +667,7 @@ if __name__ == '__main__':
         pass
 
     bot_info = bot.get_me()
-    print(f"Bot Online: @{bot_info.username}. Ready!", flush=True)
+    print(f"Bot Online: @{bot_info.username}. Master Engine Loaded!", flush=True)
 
     while True:
         try:
